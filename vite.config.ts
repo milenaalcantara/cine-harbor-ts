@@ -18,5 +18,14 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
+    server: {
+      proxy: {
+        "/api": {
+          target: process.env.BASE_URL,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, "")
+        },
+      },
+    },
   })
 });
